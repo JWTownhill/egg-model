@@ -10,7 +10,7 @@ learn = load_learner(path / "model/export.pkl")
 
 
 @app.route("/", methods=["GET", "POST"])
-def home():
+def index():
     return render_template("index.html")
 
 
