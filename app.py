@@ -1,12 +1,21 @@
 from fastai.vision.all import *
 import os
+from urllib.request import urlretrieve
 from flask import Flask, render_template
 
 app = Flask(__name__)
 app.config.from_object(os.environ["APP_SETTINGS"])
 
-path = Path()
-learn = load_learner(path / "model/export.pkl")
+model_path = Path("model.pkl")
+
+try:
+    learner = load_learner(model_path)
+except FileNotFoundError:
+    MODEL_URL = "https://egg-model.s3.eu-west-2.amazonaws.com/export.pkl"
+    urlretrieve(MODEL_URL, "model.pkl")
+    learner = load_learner(model_path)
+
+print("Model loaded. Start serving...")
 
 
 @app.route("/", methods=["GET", "POST"])
