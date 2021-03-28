@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 .vscode
+.ipynb_checkpoints
 
 # C extensions
 *.so
